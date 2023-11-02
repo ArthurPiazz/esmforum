@@ -14,6 +14,7 @@ test('Testando banco de dados vazio', () => {
 
 test('Testando cadastro de três perguntas', () => {
   modelo.cadastrar_pergunta('1 + 1 = ?');
+  modelo.cadastrar_resposta(0,2)
   modelo.cadastrar_pergunta('2 + 2 = ?');
   modelo.cadastrar_pergunta('3 + 3 = ?');
   const perguntas = modelo.listar_perguntas(); 
@@ -22,4 +23,11 @@ test('Testando cadastro de três perguntas', () => {
   expect(perguntas[1].texto).toBe('2 + 2 = ?');
   expect(perguntas[2].num_respostas).toBe(0);
   expect(perguntas[1].id_pergunta).toBe(perguntas[2].id_pergunta-1);
+  
+  const resposta = modelo.get_respostas(0)
+  expect(resposta[0].texto).toBe("2.0")
+
+  const id_pergunta = modelo.listar_perguntas()[0].id_pergunta;
+  const pergunta = modelo.get_pergunta(id_pergunta)
+  expect(pergunta.texto).toBe("1 + 1 = ?")
 });
